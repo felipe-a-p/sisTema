@@ -1,23 +1,24 @@
 from app import db
 
 
-class Usuario(db.Model):
+class Usuarios(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(120), unique=True, nullable=False)
 
     def __repr__(self):
         return f"<Usuario {self.username}>"
 
 
-class Fornecedor(db.Model):
+class Fornecedores(db.Model):
     id_fornecedor = db.Column(db.Integer, primary_key=True)
     nome_fornecedor = db.Column(db.String(100), nullable=False)
     contato_fornecedor = db.Column(db.String(50))
     endereco_fornecedor = db.Column(db.String(200))
+    email_fornecedor = db.Column(db.String(50))
 
 
-class ContaPagar(db.Model):
+class ContasPagar(db.Model):
     id_conta = db.Column(db.Integer, primary_key=True)
     valor_conta = db.Column(db.Float, nullable=False)
     vencimento_conta = db.Column(db.Date, nullable=False)
@@ -28,18 +29,31 @@ class ContaPagar(db.Model):
     fornecedor_id = db.Column(db.Integer, db.ForeignKey(
         'fornecedor.id_fornecedor'), nullable=False)
     fornecedor = db.relationship(
-        'Fornecedor', backref=db.backref('contas_pagar', lazy=True))
+        'Fornecedores', backref=db.backref('contas_pagar', lazy=True))
 
 
-class Cliente(db.Model):
+class Clientes(db.Model):
     id_cliente = db.Column(db.Integer, primary_key=True)
     nome_cliente = db.Column(db.String(100), nullable=False)
+    telefone_cliente = db.Column(db.String(20), nullable=True)
+    tipo_cliente = db.Column(db.String(20), nullable=False)
 
     def __repr__(self):
-        return f"<Cliente {self.nome} - Email: {self.email}>"
+        return f"<Cliente {self.nome_cliente}>"
 
 
-class Cheque(db.Model):
+class Vendas(db.Model):
+    id_venda = db.Column(db.integer, primary_key=True)
+    data_venda = db.Column(db.Date, nullable=False)
+    dinheiro_venda = db.Column(db.Float, nullable=True)
+    deposito_venda = db.Column(db.Float, nullable=True)
+    cartao_venda = db.Column(db.Float, nullable=True)
+    cheques_venda = db.Column(db.Float, nullable=True)
+    pix_venda = db.Column(db.Float, nullable=True)
+    tipo_venda = db.Column(db.String(20), nullable=True)
+
+
+class Cheques(db.Model):
     id_cheque = db.Column(db.Integer, primary_key=True)
     banco_cheque = db.Column(db.String(20), nullable=False, unique=False)
     conta_cheque = db.Column(db.String(20), nullable=False, unique=False)
@@ -49,13 +63,16 @@ class Cheque(db.Model):
     recebimento_cheque = db.Column(db.Date, nullable=True)
     deposito_cheque = db.Column(db.Date, nullable=True)
     status = db.Column(db.String(20), default='Em Aberto')
-    # Fks
+
     cliente_id = db.Column(db.Integer, db.ForeignKey(
-        'cliente.id_cliente'), nullable=False)
+        'clientes.id_cliente'), nullable=False)
     cliente = db.relationship(
-        'Cliente', backref=db.backref('cheques', lazy=True))
+        'Clientes', backref=db.backref('cheques', lazy=True))
+    venda_id = db.Column(db.Integer, db.ForeignKey(
+        'vendas.id_venda'), nullable=False)
+    venda = db.relationship('Vendas', backref=db.backref('cheques', lazy=True))
 
     def __repr__(self):
-        return (f"""<Cheque {self.numero_cheque} -
-                Valor: {self.numero_cheque} -
-                Emitente: {self.emitente_cheque}>""")
+        return f"""<Cheque {self.numero_cheque} -
+            Valor: {self.valor_cheque} -
+            Emitente: {self.emitente_cheque}>"""

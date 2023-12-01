@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Seus meta tags e cabeçalho aqui -->
+    <title>Menu Principal</title>
+</head>
+<body>
+    <h1>Menu Principal</h1>
+    <ul>
+        <!-- Links para as outras páginas -->
+
+        <!-- Adicione a div com o ID "app" para o Vue.js -->
+        <div id="index">
+            Conteúdo Estático
+            <span>{{ message }}</span>
+        </div>
+    </ul>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Contas a Pagar</title>
+</head>
+<body>
+    <h1>Contas a Pagar</h1>
+    <ul>
+        {% for conta_pagar in contas_pagar %}
+            <li>{{ conta_pagar.valor_conta }} - {{ conta_pagar.vencimento_conta }} - {{ conta_pagar.status_conta }} - {{ conta_pagar.tipo_conta }} - {{ conta_pagar.fornecedor.nome_fornecedor }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

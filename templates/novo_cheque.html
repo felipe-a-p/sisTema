@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Cheque</title>
+</head>
+<body>
+    <h1>Novo Cheque</h1>
+    <form method="post" action="">
+        {{ form.hidden_tag() }}
+        <p>{{ form.banco_cheque.label }} {{ form.banco_cheque }}</p>
+        <p>{{ form.conta_cheque.label }} {{ form.conta_cheque }}</p>
+        <p>{{ form.numero_cheque.label }} {{ form.numero_cheque }}</p>
+        <p>{{ form.valor_cheque.label }} {{ form.valor_cheque }}</p>
+        <p>{{ form.emitente_cheque.label }} {{ form.emitente_cheque }}</p>
+        <p>{{ form.recebimento_cheque.label }} {{ form.recebimento_cheque }}</p>
+        <p>{{ form.deposito_cheque.label }} {{ form.deposito_cheque }}</p>
+        <p>{{ form.status.label }} {{ form.status }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</body>
+</html>

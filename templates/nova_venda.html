@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Venda</title>
+</head>
+<body>
+    <h1>Nova Venda</h1>
+    <form method="post" action="">
+        {{ form.hidden_tag() }}
+        <p>{{ form.data_venda.label }} {{ form.data_venda }}</p>
+        <p>{{ form.dinheiro_venda.label }} {{ form.dinheiro_venda }}</p>
+        <p>{{ form.deposito_venda.label }} {{ form.deposito_venda }}</p>
+        <p>{{ form.cartao_venda.label }} {{ form.cartao_venda }}</p>
+        <p>{{ form.cheques_venda.label }} {{ form.cheques_venda }}</p>
+        <p>{{ form.pix_venda.label }} {{ form.pix_venda }}</p>
+        <p>{{ form.tipo_venda.label }} {{ form.tipo_venda }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Conta a Pagar</title>
+</head>
+<body>
+    <h1>Nova Conta a Pagar</h1>
+    <form method="post" action="">
+        {{ form.hidden_tag() }}
+        <p>{{ form.valor_conta.label }} {{ form.valor_conta }}</p>
+        <p>{{ form.vencimento_conta.label }} {{ form.vencimento_conta }}</p>
+        <p>{{ form.status_conta.label }} {{ form.status_conta }}</p>
+        <p>{{ form.tipo_conta.label }} {{ form.tipo_conta }}</p>
+        <p>{{ form.fornecedor_id.label }} {{ form.fornecedor_id }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</body>
+</html>

@@ -1,0 +1,97 @@
+/* Reset de Estilos Padrão do Navegador */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Estilo do Cabeçalho */
+header {
+    background-color: #ffc107;
+    /* Amarelo */
+    padding: 10px 0;
+}
+
+header h1 {
+    font-size: 2em;
+}
+
+/* Estilo da Navegação */
+nav {
+    background-color: #333;
+    /* Preto */
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Estilo do Conteúdo Principal */
+main {
+    padding: 20px 0;
+}
+
+/* Estilo do Rodapé */
+footer {
+    background-color: #333;
+    /* Preto */
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+}
+
+/* Estilo do Formulário */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+form button {
+    background-color: #ffc107;
+    /* Amarelo */
+    color: #000;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+}

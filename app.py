@@ -1,16 +1,23 @@
+# app.py
 from flask import Flask
-from models.database import db
-from routes.routes import configure_routes
+from models import db
+from routes import register_blueprints
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SECRET_KEY'] = 'sua_chave_secreta_aqui'  # Adicione esta linha
-db.init_app(app)
 
-# Configurar rotas
-configure_routes(app)
+# Configurações adicionais (se necessário)
+
+# Configurações do Banco de Dados (você deve ter algo assim no seu projeto)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Pc-Server/Documents/GitHub/sisTema/instance/site.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Inicialize o banco de dados
+db.init_app(app)
+with app.app_context():
+    db.create_all()
+
+# Registre todos os blueprints
+register_blueprints(app)
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)

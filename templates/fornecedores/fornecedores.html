@@ -1,0 +1,46 @@
+<!-- templates/fornecedores.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Lista de Fornecedores</h2>
+
+    <!-- Formulário de Adição de Fornecedor -->
+    <h3>Adicionar Fornecedor</h3>
+    <form method="post" action="{{ url_for('fornecedores.listar_fornecedores') }}">
+        {{ form.hidden_tag() }}
+        {{ form.nome_fornecedor.label }} {{ form.nome_fornecedor(size=20) }} <br>
+        {{ form.contato_fornecedor.label }} {{ form.contato_fornecedor(size=20) }} <br>
+        {{ form.endereco_fornecedor.label }} {{ form.endereco_fornecedor(size=20) }} <br>
+        {{ form.email_fornecedor.label }} {{ form.email_fornecedor(size=20) }} <br>
+        {{ form.submit }}
+    </form>
+
+    <!-- Lista de Fornecedores -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Contato</th>
+                <th>Endereço</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fornecedor in fornecedores %}
+                <tr>
+                    <td>{{ fornecedor.id_fornecedor }}</td>
+                    <td>{{ fornecedor.nome_fornecedor }}</td>
+                    <td>{{ fornecedor.contato_fornecedor }}</td>
+                    <td>{{ fornecedor.endereco_fornecedor }}</td>
+                    <td>{{ fornecedor.email_fornecedor }}</td>
+                    <td>
+                        <a href="{{ url_for('fornecedores.editar_fornecedor', id=fornecedor.id_fornecedor) }}">Editar</a>
+                        <a href="{{ url_for('fornecedores.excluir_fornecedor', id=fornecedor.id_fornecedor) }}">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

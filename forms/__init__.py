@@ -1,3 +1,6 @@
+# forms
+from wtforms.validators import DataRequired
+from wtforms import StringField, PasswordField, SubmitField
 from flask_wtf import FlaskForm
 from wtforms import StringField, FloatField, DateField, SubmitField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, NumberRange
@@ -60,3 +63,9 @@ class ContaPagarForm(FlaskForm):
     fornecedor_id = SelectField(
         'Fornecedor', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Salvar')
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Nome de Usuário', validators=[DataRequired()])
+    password = PasswordField('Senha', validators=[DataRequired()])
+    submit = SubmitField('Login')

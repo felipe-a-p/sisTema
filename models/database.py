@@ -19,6 +19,17 @@ class Fornecedores(db.Model):
     endereco_fornecedor = db.Column(db.String(200))
     email_fornecedor = db.Column(db.String(50))
 
+    def criar_fornecedor(nome, contato=None, endereco=None, email=None):
+        novo_fornecedor = Fornecedores(
+            nome_fornecedor=nome,
+            contato_fornecedor=contato,
+            endereco_fornecedor=endereco,
+            email_fornecedor=email
+        )
+        db.session.add(novo_fornecedor)
+        db.session.commit()
+        return novo_fornecedor
+
 
 class ContasPagar(db.Model):
     id_conta = db.Column(db.Integer, primary_key=True)

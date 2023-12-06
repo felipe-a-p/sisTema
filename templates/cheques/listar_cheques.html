@@ -8,10 +8,16 @@
 </head>
 <body>
     <h1>Cheques</h1>
+    <!-- Adicione um formulário para busca -->
+    <form method="GET" action="{{ url_for('lista_cheques') }}">
+        <label for="filtro_emitente">Emitente:</label>
+        <input type="text" name="filtro_emitente">
+        <button type="submit">Buscar</button>
+    </form>
+
     <ul>
         {% for cheque in cheques %}
             <li>{{ cheque.numero_cheque }} - {{ cheque.valor_cheque }} - {{ cheque.emitente_cheque }}</li>
         {% endfor %}
-    </ul>
 </body>
 </html>

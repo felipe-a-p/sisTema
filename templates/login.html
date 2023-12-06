@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Seus meta tags e cabeçalho aqui -->
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form method="post" action="{{ url_for('login') }}">
+        {{ form.hidden_tag() }}
+        <label for="username">Nome de Usuário:</label>
+        {{ form.username() }}
+        <br>
+        <label for="password">Senha:</label>
+        {{ form.password() }}
+        <br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

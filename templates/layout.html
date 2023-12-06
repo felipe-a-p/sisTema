@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}Meu Sistema{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav">
+                <li class="submenu">
+                    <a href="{{ url_for('contas_pagar.listar_contas_pagar') }}">Contas a Pagar</a>
+                    <ul class="submenu-content">
+                        <li><a href="{{ url_for('contas_pagar.listar_contas_pagar') }}">Listar</a></li>
+                        <li><a href="{{ url_for('contas_pagar.nova_conta_pagar') }}">Nova</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="{{ url_for('fornecedores.listar_fornecedores') }}">Fornecedores</a>
+                    <ul class="submenu-content">
+                        <li><a href="{{ url_for('fornecedores.listar_fornecedores') }}">Listar</a></li>
+                        <li><a href="{{ url_for('fornecedores.novo_fornecedor') }}">Novo</a></li>
+                    </ul>
+                </li>
+                <!-- Adicione mais links conforme necessário -->
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="conteudo">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Adicione aqui o rodapé, scripts comuns, etc. -->
+</body>
+</html>

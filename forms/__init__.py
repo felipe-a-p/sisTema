@@ -57,9 +57,17 @@ class ContaPagarForm(FlaskForm):
     vencimento_conta = DateField(
         'Vencimento da Conta', format='%Y-%m-%d', validators=[DataRequired()])
     status_conta = SelectField('Status da Conta', choices=[(
-        'Pendente', 'Pendente'), ('Pago', 'Pago')], validators=[DataRequired()])
-    tipo_conta = SelectField('Tipo de Conta', choices=[(
-        'Despesa', 'Despesa'), ('Fatura', 'Fatura')], validators=[DataRequired()])
+        'Pendente', 'Pendente'),
+        ('Pago', 'Pago')], validators=[DataRequired()])
+    tipo_conta = SelectField('Tipo de Conta',
+                             choices=[('Produto Acabado', 'Produto Acabado'),
+                                      ('Materia Prima',
+                                       'Materia Prima'),
+                                      ('Servico', 'Servico'),
+                                      ('Imposto', 'Imposto'),
+                                      ('Colaboradores', 'Colaboradores'),
+                                      ('Outros', 'Outros')],
+                             validators=[DataRequired()])
     fornecedor_id = SelectField(
         'Fornecedor', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Salvar')

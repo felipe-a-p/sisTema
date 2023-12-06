@@ -14,6 +14,8 @@ body {
     font-family: Arial, sans-serif;
     background-color: #000;
     color: #fff;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
@@ -23,19 +25,16 @@ body {
 
 /* Estilo do Cabeçalho */
 header {
-    background-color: #ffc107;
-    /* Amarelo */
+    background-color: #272727;
+    /* Cinza escuro */
     padding: 10px 0;
-}
-
-header h1 {
-    font-size: 2em;
 }
 
 /* Estilo da Navegação */
 nav {
-    background-color: #333;
-    /* Preto */
+    background-color: rgba(253, 190, 0, 0.835);
+    /* Amarelo */
+    padding: 10px 0;
 }
 
 nav ul {
@@ -48,9 +47,42 @@ nav ul li {
 }
 
 nav a {
-    color: #fff;
+    color: #000;
+    /* Preto */
     text-decoration: none;
     font-weight: bold;
+}
+
+/* Submenu */
+.submenu {
+    position: relative;
+}
+
+.submenu-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(253, 190, 0, 0.938);
+    /* Amarelo mais escuro */
+    padding: 10px;
+    list-style-type: none;
+}
+
+.submenu:hover .submenu-content {
+    display: grid;
+    background-color: rgba(253, 207, 0, 0.938);
+}
+
+.submenu-content li {
+    margin: 0;
+    padding: 8px 0;
+    text-align: center;
+}
+
+.submenu-content li:hover {
+    background-color: rgba(253, 164, 0, 0.938);
+    /* Amarelo mais escuro ao passar o mouse */
 }
 
 /* Estilo do Conteúdo Principal */
@@ -67,31 +99,46 @@ footer {
     text-align: center;
 }
 
-/* Estilo do Formulário */
-form {
-    max-width: 400px;
-    margin: 0 auto;
-}
 
-form label {
-    display: block;
-    margin-bottom: 8px;
-    color: #fff;
-}
-
-form input {
+/* Estilos para a tabela de fornecedores */
+.table {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-    box-sizing: border-box;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+    /* Fonte padrão para a tabela */
 }
 
-form button {
-    background-color: #ffc107;
-    /* Amarelo */
-    color: #000;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    font-size: 1em;
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-family: 'Arial', sans-serif;
+    /* Fonte para as células da tabela */
+}
+
+.table th {
+    background-color: #333;
+    color: #fff;
+    /* Cor da fonte para os cabeçalhos da tabela */
+}
+
+.table td {
+    background-color: #fff;
+    color: #333;
+    /* Cor mais escura para as células da tabela */
+}
+
+.btn-editar {
+    color: #333;
+    text-decoration: none;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-editar:hover {
+    background-color: #ddd;
 }

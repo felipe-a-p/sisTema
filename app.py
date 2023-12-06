@@ -2,10 +2,14 @@
 from flask import Flask
 from models import db
 from routes import register_blueprints
+from flask_wtf.csrf import CSRFProtect
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
-# Configurações adicionais (se necessário)
+app.config['SECRET_KEY'] = 'sua_chave_secreta_aqui'
+
+csrf = CSRFProtect(app)
+
 
 # Configurações do Banco de Dados (você deve ter algo assim no seu projeto)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Pc-Server/Documents/GitHub/sisTema/instance/site.db'

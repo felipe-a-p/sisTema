@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Seus meta tags e cabeçalho aqui -->
-    <title>Menu Principal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% extends 'layout.html' %}
 
-</head>
-<body>
-    <h1>Menu Principal</h1>
-    <div id="index">
-            
-        <p id="mensagem"></p>
-    </div>
-    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-</body>
-</html>
+{% block content %}
+    <h2>Pagina Inicial</h2>
+
+{% endblock %}

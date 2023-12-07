@@ -64,6 +64,12 @@ class Vendas(db.Model):
     cheques_venda = db.Column(db.Float, nullable=True)
     pix_venda = db.Column(db.Float, nullable=True)
     tipo_venda = db.Column(db.String(20), nullable=True)
+    total_venda = db.Column(db.Float, nullable=False)
+
+    cliente_id = db.Column(db.Integer, db.ForeignKey(
+        'clientes.id_cliente'), nullable=False)
+    cliente = db.relationship(
+        'Clientes', backref=db.backref('vendas', lazy=True))
 
 
 class Cheques(db.Model):

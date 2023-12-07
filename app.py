@@ -14,9 +14,8 @@ app.config['SECRET_KEY'] = 'sua_chave_secreta_aqui'
 csrf = CSRFProtect(app)
 
 
-# Configurações do Banco de Dados (você deve ter algo assim no seu projeto)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///G:/felip/Documents/Git/sisTema/sisTema/instance/site.db'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Pc-Server/Documents/GitHub/sisTema/instance/site.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///G:/felip/Documents/Git/sisTema/sisTema/instance/site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Inicialize o banco de dados

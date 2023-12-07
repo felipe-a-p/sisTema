@@ -4,7 +4,7 @@
 
 {% extends 'layout.html' %}
 {% block content %}
-    <h1>{{modo}} Venda</h1>
+    <h1>{{ modo }} Venda</h1>
     <form method="post" action="">
         {{ form.hidden_tag() }}
         <p>{{ form.data_venda.label }} {{ form.data_venda }}</p>
@@ -15,8 +15,43 @@
         <p>{{ form.pix_venda.label }} {{ form.pix_venda }}</p>
         <p>{{ form.tipo_venda.label }} {{ form.tipo_venda }}</p>
         <p>{{ form.cliente_id.label }} {{ form.cliente_id }}</p>
+        <!-- Adicione o campo total_venda desabilitado -->
+        <p>{{ form.total_venda.label }} {{ form.total_venda(disabled=True) }}</p>
         <p>{{ form.submit() }}</p>
     </form>
+
+    <script>
+        // Adicione um script JavaScript para calcular e atualizar dinamicamente o total_venda
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obtém os campos relevantes
+            const dinheiroVenda = document.getElementById('dinheiro_venda');
+            const depositoVenda = document.getElementById('deposito_venda');
+            const cartaoVenda = document.getElementById('cartao_venda');
+            const chequesVenda = document.getElementById('cheques_venda');
+            const pixVenda = document.getElementById('pix_venda');
+            const totalVenda = document.getElementById('total_venda');
+
+            // Função para calcular o total e atualizar o campo
+            function calcularTotal() {
+                const total = parseFloat(dinheiroVenda.value || 0) +
+                    parseFloat(depositoVenda.value || 0) +
+                    parseFloat(cartaoVenda.value || 0) +
+                    parseFloat(chequesVenda.value || 0) +
+                    parseFloat(pixVenda.value || 0);
+
+                // Atualiza o campo total_venda
+                totalVenda.value = total.toFixed(2);
+            }
+
+            // Adiciona eventos de alteração nos campos relevantes
+            dinheiroVenda.addEventListener('change', calcularTotal);
+            depositoVenda.addEventListener('change', calcularTotal);
+            cartaoVenda.addEventListener('change', calcularTotal);
+            chequesVenda.addEventListener('change', calcularTotal);
+            pixVenda.addEventListener('change', calcularTotal);
+
+            // Chama a função para calcular o total inicial
+            calcularTotal();
+        });
+    </script>
 {% endblock %}
-
-

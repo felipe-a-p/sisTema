@@ -49,7 +49,8 @@ class VendaForm(FlaskForm):
     tipo_venda = SelectField('Tipo de Venda', choices=[(
         'Mercadoria', 'Mercadoria'), ('Serviço', 'Serviço')],
         validators=[DataRequired()])
-    total_venda = FloatField('Total', validators=[NumberRange(min=0)])
+    total_venda = StringField('Total Venda', render_kw={
+                              'readonly': True}, validators=[DataRequired()])
     cliente_id = SelectField(
         'Cliente', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Salvar')

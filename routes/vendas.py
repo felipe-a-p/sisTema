@@ -23,7 +23,8 @@ def listar_vendas():
             'dinheiro_venda': venda.dinheiro_venda,
             'deposito_venda': venda.deposito_venda,
             'cartao_venda': venda.cartao_venda,
-            'cheques_venda': venda.pix_venda,
+            'cheques_venda': venda.cheques_venda,
+            'pix_venda': venda.pix_venda,
             'tipo_venda': venda.tipo_venda,
             # Aqui obtemos o nome do cliente associado à venda
             'nome_cliente': cliente.nome_cliente
@@ -40,28 +41,39 @@ def nova_venda():
         (f.id_cliente, f.nome_cliente) for f in Clientes.query.all()]
 
     if form.validate_on_submit():
+        dinheiro_venda = form.dinheiro_venda.data or 0.0
+        deposito_venda = form.deposito_venda.data or 0.0
+        cartao_venda = form.cartao_venda.data or 0.0
+        cheques_venda = form.cheques_venda.data or 0.0
+        pix_venda = form.pix_venda.data or 0.0
+
+        total_venda = (
+            dinheiro_venda +
+            deposito_venda +
+            cartao_venda +
+            cheques_venda +
+            pix_venda
+        )
+
         nova_venda = Vendas(
             data_venda=form.data_venda.data,
-            dinheiro_venda=form.dinheiro_venda.data,
-            deposito_venda=form.deposito_venda.data,
-            cartao_venda=form.cartao_venda.data,
-            cheques_venda=form.cheques_venda.data,
-            pix_venda=form.pix_venda.data,
+            dinheiro_venda=dinheiro_venda,
+            deposito_venda=deposito_venda,
+            cartao_venda=cartao_venda,
+            cheques_venda=cheques_venda,
+            pix_venda=pix_venda,
             tipo_venda=form.tipo_venda.data,
-            cliente_id=form.cliente_id.data
+            cliente_id=form.cliente_id.data,
+            total_venda=total_venda
         )
-        total_venda = (
-            nova_venda.dinheiro_venda +
-            nova_venda.deposito_venda +
-            nova_venda.cartao_venda +
-            nova_venda.cheques_venda +
-            nova_venda.pix_venda
-        )
-        nova_venda.total_venda = total_venda
+
         db.session.add(nova_venda)
         db.session.commit()
         flash('Venda adicionada com sucesso!', 'success')
         return redirect(url_for('vendas.listar_vendas'))
+    else:
+        print(form.errors)
+        print(form.data)
 
     return render_template('vendas/venda.html', form=form,
                            modo='Nova')
@@ -83,14 +95,7 @@ def editar_conta(id):
         venda.cheques_venda = form.cheques_venda.data
         venda.pix_venda = form.pix_venda.data
         venda.tipo_venda = form.tipo_venda.data
-        total_venda = (
-            venda.dinheiro_venda +
-            venda.deposito_venda +
-            venda.cartao_venda +
-            venda.cheques_venda +
-            venda.pix_venda
-        )
-        venda.total_venda = total_venda
+        venda.total_venda = form.total_venda.data
         db.session.commit()
         return redirect(url_for('vendas.listar_vendas'))
 

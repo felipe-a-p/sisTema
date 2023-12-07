@@ -30,6 +30,14 @@ class FornecedorForm(FlaskForm):
     submit = SubmitField('Salvar')
 
 
+class ClienteForm(FlaskForm):
+    nome_cliente = StringField('Nome do Cliente', validators=[DataRequired()])
+    telefone_cliente = StringField('Telefone do Cliente')
+    tipo_cliente = SelectField('Tipo de Cliente', choices=[(
+        'Regular', 'Regular'), ('VIP', 'VIP')], validators=[DataRequired()])
+    submit = SubmitField('Salvar')
+
+
 class VendaForm(FlaskForm):
     data_venda = DateField(
         'Data da Venda', format='%Y-%m-%d', validators=[DataRequired()])
@@ -41,14 +49,9 @@ class VendaForm(FlaskForm):
     tipo_venda = SelectField('Tipo de Venda', choices=[(
         'Mercadoria', 'Mercadoria'), ('Serviço', 'Serviço')],
         validators=[DataRequired()])
-    submit = SubmitField('Salvar')
-
-
-class ClienteForm(FlaskForm):
-    nome_cliente = StringField('Nome do Cliente', validators=[DataRequired()])
-    telefone_cliente = StringField('Telefone do Cliente')
-    tipo_cliente = SelectField('Tipo de Cliente', choices=[(
-        'Regular', 'Regular'), ('VIP', 'VIP')], validators=[DataRequired()])
+    total_venda = FloatField('Total', validators=[NumberRange(min=0)])
+    cliente_id = SelectField(
+        'Cliente', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Salvar')
 
 

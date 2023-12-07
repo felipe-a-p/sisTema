@@ -25,12 +25,20 @@
                     </ul>
                 </li>
                 <li class="submenu">
+                    <a href="{{ url_for('vendas.listar_vendas') }}">Vendas</a>
+                    <ul class="submenu-content">
+                        <li><a href="{{ url_for('vendas.listar_vendas') }}">Listar</a></li>
+                        <li><a href="{{ url_for('vendas.nova_venda') }}">Nova</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
                     <a href="{{ url_for('clientes.listar_clientes') }}">Clientes</a>
                     <ul class="submenu-content">
                         <li><a href="{{ url_for('clientes.listar_clientes') }}">Listar</a></li>
                         <li><a href="{{ url_for('clientes.novo_cliente') }}">Nova</a></li>
                     </ul>
-                </li>            </ul>
+                </li>            
+            </ul>
         </div>
     </nav>
     {% with messages = get_flashed_messages() %}

@@ -12,6 +12,16 @@ class Usuarios(db.Model):
         return f"<Usuario {self.username}>"
 
 
+class Clientes(db.Model):
+    id_cliente = db.Column(db.Integer, primary_key=True)
+    nome_cliente = db.Column(db.String(100), nullable=False)
+    telefone_cliente = db.Column(db.String(20), nullable=True)
+    tipo_cliente = db.Column(db.String(20), nullable=False)
+
+    def __repr__(self):
+        return f"<Cliente {self.nome_cliente}>"
+
+
 class Fornecedores(db.Model):
     id_fornecedor = db.Column(db.Integer, primary_key=True)
     nome_fornecedor = db.Column(db.String(100), nullable=False)
@@ -45,16 +55,6 @@ class ContasPagar(db.Model):
         'Fornecedores', backref=db.backref('contas_pagar', lazy=True))
 
 
-class Clientes(db.Model):
-    id_cliente = db.Column(db.Integer, primary_key=True)
-    nome_cliente = db.Column(db.String(100), nullable=False)
-    telefone_cliente = db.Column(db.String(20), nullable=True)
-    tipo_cliente = db.Column(db.String(20), nullable=False)
-
-    def __repr__(self):
-        return f"<Cliente {self.nome_cliente}>"
-
-
 class Vendas(db.Model):
     id_venda = db.Column(db.Integer, primary_key=True)
     data_venda = db.Column(db.Date, nullable=False)
@@ -64,6 +64,11 @@ class Vendas(db.Model):
     cheques_venda = db.Column(db.Float, nullable=True)
     pix_venda = db.Column(db.Float, nullable=True)
     tipo_venda = db.Column(db.String(20), nullable=True)
+
+    cliente_id = db.Column(db.Integer, db.ForeignKey(
+        'clientes.id_cliente'), nullable=False)
+    cliente = db.relationship(
+        'Clientes', backref=db.backref('vendas', lazy=True))
 
 
 class Cheques(db.Model):

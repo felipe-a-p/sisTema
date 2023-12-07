@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Lista de Vendas</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data Venda</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Deposito</th>
+                <th>Dinheiro</th>
+                <th>Pix</th>
+                <th>Cheque</th>
+                <th>Editar</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for venda in vendas %}
+                <tr>
+                    <td>{{ venda['data_venda'] }}</td>
+                    <td>{{ venda['nome_cliente'] }}</td>
+                    <td>{{ venda['valor_venda'] }}</td>
+                    <td>{{ venda['total_venda'] }}</td>
+                    <td>{{ venda['deposito_venda'] }}</td>
+                    <td>{{ venda['dinheiro_venda'] }}</td>
+                    <td>{{ venda['pix_venda'] }}</td>
+                    <td>{{ venda['cheque_venda'] }}</td>
+                    <td>
+                        <a href="{{ url_for('vendas.editar_venda', id=venda.id_venda) }}">Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

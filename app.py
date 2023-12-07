@@ -3,8 +3,11 @@ from flask import Flask
 from models import db
 from routes import register_blueprints
 from flask_wtf.csrf import CSRFProtect
+from flask_migrate import Migrate
+
 
 app = Flask(__name__, template_folder='templates')
+migrate = Migrate(app, db)
 
 app.config['SECRET_KEY'] = 'sua_chave_secreta_aqui'
 

@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Venda</title>
-</head>
-<body>
-    <h1>Nova Venda</h1>
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/formularios.css') }}">
+{% endblock %}
+
+{% extends 'layout.html' %}
+{% block content %}
+    <h1>{{modo}} Venda</h1>
     <form method="post" action="">
         {{ form.hidden_tag() }}
         <p>{{ form.data_venda.label }} {{ form.data_venda }}</p>
@@ -17,7 +14,9 @@
         <p>{{ form.cheques_venda.label }} {{ form.cheques_venda }}</p>
         <p>{{ form.pix_venda.label }} {{ form.pix_venda }}</p>
         <p>{{ form.tipo_venda.label }} {{ form.tipo_venda }}</p>
+        <p>{{ form.cliente_id.label }} {{ form.cliente_id }}</p>
         <p>{{ form.submit() }}</p>
     </form>
-</body>
-</html>
+{% endblock %}
+
+

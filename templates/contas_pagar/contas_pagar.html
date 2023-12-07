@@ -6,23 +6,25 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Fornecedor</th>
                 <th>Valor</th>
                 <th>Vencimento</th>
                 <th>Status</th>
                 <th>Tipo</th>
-                <th>Fornecedor ID</th>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>
             {% for conta in contas_pagar %}
                 <tr>
-                    <td>{{ conta['id_conta'] }}</td>
+                    <td>{{ conta['nome_fornecedor'] }}</td>
                     <td>{{ conta['valor_conta'] }}</td>
                     <td>{{ conta['vencimento_conta'] }}</td>
                     <td>{{ conta['status_conta'] }}</td>
                     <td>{{ conta['tipo_conta'] }}</td>
-                    <td>{{ conta['nome_fornecedor'] }}</td>
+                    <td>
+                        <a href="{{ url_for('contas_pagar.editar_conta', id=conta.id_conta) }}">Editar</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

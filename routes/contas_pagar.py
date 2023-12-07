@@ -54,3 +54,25 @@ def nova_conta_pagar():
 
     return render_template('contas_pagar/conta_pagar.html', form=form,
                            modo='Nova')
+
+
+@contas_pagar_bp.route('/conta_pagar/<int:id>', methods=['GET', 'POST'])
+def editar_conta(id):
+    conta_pagar = ContasPagar.query.get_or_404(id)
+    form = ContaPagarForm(obj=conta_pagar)
+    form.fornecedor_id.choices = [
+        (f.id_fornecedor, f.nome_fornecedor) for f in Fornecedores.query.all()]
+
+    if form.validate_on_submit():
+        # Atualização do fornecedor com base nos dados do formulário
+        conta_pagar.valor_conta = form.valor_conta.data
+        conta_pagar.vencimento_conta = form.vencimento_conta.data
+        conta_pagar.status_conta = form.status_conta.data
+        conta_pagar.tipo_conta = form.tipo_conta.data
+        conta_pagar.fornecedor_id = form.fornecedor_id.data
+
+        db.session.commit()
+        return redirect(url_for('contas_pagar.listar_contas_pagar'))
+
+    return render_template('contas_pagar/conta_pagar.html',
+                           form=form, conta_pagar=conta_pagar, modo="EDITAR")

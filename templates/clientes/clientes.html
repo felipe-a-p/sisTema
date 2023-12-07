@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Lista de Clientes</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Tipo</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente['id_cliente'] }}</td>
+                    <td>{{ cliente['nome_cliente'] }}</td>
+                    <td>{{ cliente['telefone_cliente'] }}</td>
+                    <td>{{ cliente['tipo_cliente'] }}</td>
+                    <td>
+                        <a href="{{ url_for('clientes.editar_cliente', id=cliente.id_cliente) }}">Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

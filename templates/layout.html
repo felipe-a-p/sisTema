@@ -24,16 +24,26 @@
                         <li><a href="{{ url_for('fornecedores.novo_fornecedor') }}">Novo</a></li>
                     </ul>
                 </li>
-                <!-- Adicione mais links conforme necessário -->
-            </ul>
+                <li class="submenu">
+                    <a href="{{ url_for('clientes.listar_clientes') }}">Clientes</a>
+                    <ul class="submenu-content">
+                        <li><a href="{{ url_for('clientes.listar_clientes') }}">Listar</a></li>
+                        <li><a href="{{ url_for('clientes.novo_cliente') }}">Nova</a></li>
+                    </ul>
+                </li>            </ul>
         </div>
     </nav>
-
-
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}   
     <div class="conteudo">
         {% block content %}{% endblock %}
     </div>
-
-    <!-- Adicione aqui o rodapé, scripts comuns, etc. -->
 </body>
 </html>

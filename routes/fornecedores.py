@@ -36,7 +36,7 @@ def novo_fornecedor():
         db.session.commit()
         return redirect(url_for('fornecedores.listar_fornecedores'))
 
-    return render_template('fornecedores/fornecedor.html', form=form, modo="ADICIONAR FORNECEDOR")
+    return render_template('fornecedores/fornecedor.html', form=form, modo="ADICIONAR")
 
 
 @fornecedores_bp.route('/fornecedor/<int:id>', methods=['GET', 'POST'])
@@ -55,4 +55,4 @@ def editar_fornecedor(id):
         return redirect(url_for('fornecedores.listar_fornecedores'))
 
     return render_template('fornecedores/fornecedor.html',
-                           form=form, fornecedor=fornecedor, modo="EDITAR FORNECEDOR")
+                           form=form, fornecedor=fornecedor, modo="EDITAR")

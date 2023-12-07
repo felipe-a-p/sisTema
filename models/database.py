@@ -74,7 +74,7 @@ class Cheques(db.Model):
     valor_cheque = db.Column(db.Float, nullable=False)
     emitente_cheque = db.Column(db.String(100), nullable=False)
     recebimento_cheque = db.Column(db.Date, nullable=True)
-    deposito_cheque = db.Column(db.Date, nullable=True)
+    deposito_cheque = db.Column(db.Date, nullable=False)
     status = db.Column(db.String(20), default='Em Aberto')
 
     cliente_id = db.Column(db.Integer, db.ForeignKey(
@@ -82,7 +82,7 @@ class Cheques(db.Model):
     cliente = db.relationship(
         'Clientes', backref=db.backref('cheques', lazy=True))
     venda_id = db.Column(db.Integer, db.ForeignKey(
-        'vendas.id_venda'), nullable=False)
+        'vendas.id_venda'), nullable=True)
     venda = db.relationship('Vendas', backref=db.backref('cheques', lazy=True))
 
     def __repr__(self):

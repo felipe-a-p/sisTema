@@ -26,6 +26,7 @@ def listar_vendas():
             'cheques_venda': venda.cheques_venda,
             'pix_venda': venda.pix_venda,
             'tipo_venda': venda.tipo_venda,
+            'total_venda': venda.total_venda,
             # Aqui obtemos o nome do cliente associado à venda
             'nome_cliente': cliente.nome_cliente
         })
@@ -80,13 +81,27 @@ def nova_venda():
 
 
 @vendas_bp.route('/venda/<int:id>', methods=['GET', 'POST'])
-def editar_conta(id):
+def editar_venda(id):
     venda = Vendas.query.get_or_404(id)
     form = VendaForm(obj=venda)
     form.cliente_id.choices = [
-        (f.cliente_id, f.nome_cliente) for f in Clientes.query.all()]
+        (f.id_cliente, f.nome_cliente) for f in Clientes.query.all()]
 
     if form.validate_on_submit():
+        dinheiro_venda = form.dinheiro_venda.data or 0.0
+        deposito_venda = form.deposito_venda.data or 0.0
+        cartao_venda = form.cartao_venda.data or 0.0
+        cheques_venda = form.cheques_venda.data or 0.0
+        pix_venda = form.pix_venda.data or 0.0
+
+        total_venda = (
+            dinheiro_venda +
+            deposito_venda +
+            cartao_venda +
+            cheques_venda +
+            pix_venda
+        )
+
         # Atualização do fornecedor com base nos dados do formulário
         venda.data_venda = form.data_venda.data
         venda.dinheiro_venda = form.dinheiro_venda.data
@@ -95,7 +110,7 @@ def editar_conta(id):
         venda.cheques_venda = form.cheques_venda.data
         venda.pix_venda = form.pix_venda.data
         venda.tipo_venda = form.tipo_venda.data
-        venda.total_venda = form.total_venda.data
+        venda.total_venda = total_venda
         db.session.commit()
         return redirect(url_for('vendas.listar_vendas'))
 

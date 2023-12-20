@@ -34,7 +34,7 @@ def novo_fornecedor():
         )
         db.session.add(novo_fornecedor)
         db.session.commit()
-        return redirect(url_for('fornecedores.listar_fornecedores'))
+        return redirect(url_for('fornecedores.listar_fornecedores', mensagem='Fornecedor criado com sucesso!'))
 
     return render_template('fornecedores/fornecedor.html', form=form, modo="ADICIONAR")
 
@@ -52,7 +52,7 @@ def editar_fornecedor(id):
         fornecedor.email_fornecedor = form.email_fornecedor.data
 
         db.session.commit()
-        return redirect(url_for('fornecedores.listar_fornecedores'))
+        return redirect(url_for('fornecedores.listar_fornecedores', mensagem='Fornecedor editado com sucesso!'))
 
     return render_template('fornecedores/fornecedor.html',
                            form=form, fornecedor=fornecedor, modo="EDITAR")

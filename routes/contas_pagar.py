@@ -50,7 +50,7 @@ def nova_conta_pagar():
         db.session.add(nova_conta)
         db.session.commit()
         flash('Conta adicionada com sucesso!', 'success')
-        return redirect(url_for('contas_pagar.listar_contas_pagar'))
+        return redirect(url_for('contas_pagar.listar_contas_pagar', mensagem='Conta criada com sucesso!'))
 
     return render_template('contas_pagar/conta_pagar.html', form=form,
                            modo='Nova')
@@ -72,7 +72,7 @@ def editar_conta(id):
         conta_pagar.fornecedor_id = form.fornecedor_id.data
 
         db.session.commit()
-        return redirect(url_for('contas_pagar.listar_contas_pagar'))
+        return redirect(url_for('contas_pagar.listar_contas_pagar', mensagem='Conta editada com sucesso!'))
 
     return render_template('contas_pagar/conta_pagar.html',
                            form=form, conta_pagar=conta_pagar, modo="EDITAR")

@@ -3,22 +3,7 @@ from wtforms.validators import DataRequired
 from wtforms import StringField, PasswordField, SubmitField
 from flask_wtf import FlaskForm
 from wtforms import StringField, FloatField, DateField, SubmitField, SelectField, TextAreaField
-from wtforms.validators import DataRequired, NumberRange
-
-
-class ChequeForm(FlaskForm):
-    banco_cheque = StringField('Banco', validators=[DataRequired()])
-    conta_cheque = StringField('Conta', validators=[DataRequired()])
-    numero_cheque = StringField('Número', validators=[DataRequired()])
-    valor_cheque = FloatField(
-        'Valor', validators=[DataRequired(), NumberRange(min=0)])
-    emitente_cheque = StringField('Emitente', validators=[DataRequired()])
-    recebimento_cheque = DateField('Recebimento', format='%Y-%m-%d')
-    deposito_cheque = DateField('Depósito', format='%Y-%m-%d')
-    status = SelectField('Status', choices=[
-                        ('Em Aberto', 'Em Aberto'), ('Pago', 'Pago')],
-        default='Em Aberto')
-    submit = SubmitField('Salvar')
+from wtforms.validators import DataRequired, NumberRange, InputRequired, Length
 
 
 class FornecedorForm(FlaskForm):
@@ -39,20 +24,17 @@ class ClienteForm(FlaskForm):
 
 
 class VendaForm(FlaskForm):
-    data_venda = DateField(
-        'Data da Venda', format='%Y-%m-%d', validators=[DataRequired()])
-    dinheiro_venda = FloatField('Dinheiro', validators=[NumberRange(min=0)])
-    deposito_venda = FloatField('Depósito', validators=[NumberRange(min=0)])
-    cartao_venda = FloatField('Cartão', validators=[NumberRange(min=0)])
-    cheques_venda = FloatField('Cheques', validators=[NumberRange(min=0)])
-    pix_venda = FloatField('PIX', validators=[NumberRange(min=0)])
-    tipo_venda = SelectField('Tipo de Venda', choices=[(
-        'Mercadoria', 'Mercadoria'), ('Serviço', 'Serviço')],
-        validators=[DataRequired()])
-    total_venda = StringField('Total Venda', render_kw={
-                              'readonly': True}, validators=[DataRequired()])
-    cliente_id = SelectField(
-        'Cliente', coerce=int, validators=[DataRequired()])
+    data_venda = DateField('Data da Venda', validators=[DataRequired()])
+    dinheiro_venda = FloatField('Dinheiro')
+    deposito_venda = FloatField('Depósito Bancário')
+    cartao_venda = FloatField('Cartão de Crédito')
+    cheques_venda = FloatField('Cheques')
+    pix_venda = FloatField('Pix')
+    tipo_venda = SelectField('Tipo de Venda', choices=[('Produto', 'Produto'), ('Serviço', 'Serviço')],
+                             validators=[DataRequired()])
+    cliente_id = SelectField('Cliente', coerce=int,
+                             validators=[DataRequired()])
+    total_venda = FloatField('Total Venda')
     submit = SubmitField('Salvar')
 
 
@@ -81,3 +63,28 @@ class LoginForm(FlaskForm):
     username = StringField('Nome de Usuário', validators=[DataRequired()])
     password = PasswordField('Senha', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+
+class ChequeForm(FlaskForm):
+    banco_cheque = StringField('Banco do Cheque', validators=[
+                               InputRequired(), Length(max=20)])
+    conta_cheque = StringField('Conta do Cheque', validators=[
+                               InputRequired(), Length(max=20)])
+    numero_cheque = StringField('Número do Cheque', validators=[
+                                InputRequired(), Length(max=20)])
+    valor_cheque = FloatField('Valor do Cheque', validators=[InputRequired()])
+    emitente_cheque = StringField('Emitente do Cheque', validators=[
+                                  InputRequired(), Length(max=100)])
+    recebimento_cheque = DateField(
+        'Data de Recebimento', format='%Y-%m-%d', validators=[])
+    deposito_cheque = DateField(
+        'Data de Depósito', format='%Y-%m-%d', validators=[])
+    status = SelectField('Status do Cheque', choices=[
+        ('Em Aberto', 'Em Aberto'),
+        ('Depositado', 'Depositado'),
+        ('Devolvido', 'Devolvido')],
+        default='Em Aberto', validators=[InputRequired()])
+    cliente_id = SelectField('ID do Cliente', coerce=int,
+                             validators=[InputRequired()])
+    venda_id = SelectField('ID da Venda', coerce=int,
+                           validators=[InputRequired()])

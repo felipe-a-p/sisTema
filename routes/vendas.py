@@ -9,13 +9,9 @@ form = VendaForm
 
 @vendas_bp.route('/vendas', methods=['GET', 'POST'])
 def listar_vendas():
-    # Consulta ao banco de dados para obter as vendas com informações do cliente
     vendas = db.session.query(Vendas, Clientes).join(
         Clientes, onclause=Vendas.cliente_id == Clientes.id_cliente).all()
-
-    # Estrutura de dados para armazenar informações a serem exibidas na lista
     lista_vendas = []
-
     for venda, cliente in vendas:
         lista_vendas.append({
             'id_venda': venda.id_venda,
@@ -27,17 +23,21 @@ def listar_vendas():
             'pix_venda': venda.pix_venda,
             'tipo_venda': venda.tipo_venda,
             'total_venda': venda.total_venda,
-            # Aqui obtemos o nome do cliente associado à venda
             'nome_cliente': cliente.nome_cliente
         })
 
-    # Passe a lista para o template
     return render_template('vendas/vendas.html', vendas=lista_vendas)
 
 
 @vendas_bp.route('/venda/nova', methods=['GET', 'POST'])
 def nova_venda():
     form = VendaForm()
+    form.dinheiro_venda.data = 0
+    form.deposito_venda.data = 0
+    form.cartao_venda.data = 0
+    form.cheques_venda.data = 0
+    form.pix_venda.data = 0
+
     form.cliente_id.choices = [
         (f.id_cliente, f.nome_cliente) for f in Clientes.query.all()]
 
@@ -47,7 +47,6 @@ def nova_venda():
         cartao_venda = form.cartao_venda.data or 0.0
         cheques_venda = form.cheques_venda.data or 0.0
         pix_venda = form.pix_venda.data or 0.0
-
         total_venda = (
             dinheiro_venda +
             deposito_venda +
@@ -55,7 +54,7 @@ def nova_venda():
             cheques_venda +
             pix_venda
         )
-
+        form.total_venda.data = total_venda
         nova_venda = Vendas(
             data_venda=form.data_venda.data,
             dinheiro_venda=dinheiro_venda,
@@ -67,11 +66,9 @@ def nova_venda():
             cliente_id=form.cliente_id.data,
             total_venda=total_venda
         )
-
         db.session.add(nova_venda)
         db.session.commit()
-        flash('Venda adicionada com sucesso!', 'success')
-        return redirect(url_for('vendas.listar_vendas'))
+        return redirect(url_for('vendas.listar_vendas'), mensagem='Venda adicionada com sucesso!')
     else:
         print(form.errors)
         print(form.data)
@@ -86,14 +83,12 @@ def editar_venda(id):
     form = VendaForm(obj=venda)
     form.cliente_id.choices = [
         (f.id_cliente, f.nome_cliente) for f in Clientes.query.all()]
-
     if form.validate_on_submit():
         dinheiro_venda = form.dinheiro_venda.data or 0.0
         deposito_venda = form.deposito_venda.data or 0.0
         cartao_venda = form.cartao_venda.data or 0.0
         cheques_venda = form.cheques_venda.data or 0.0
         pix_venda = form.pix_venda.data or 0.0
-
         total_venda = (
             dinheiro_venda +
             deposito_venda +
@@ -101,8 +96,6 @@ def editar_venda(id):
             cheques_venda +
             pix_venda
         )
-
-        # Atualização do fornecedor com base nos dados do formulário
         venda.data_venda = form.data_venda.data
         venda.dinheiro_venda = form.dinheiro_venda.data
         venda.deposito_venda = form.deposito_venda.data
@@ -112,7 +105,6 @@ def editar_venda(id):
         venda.tipo_venda = form.tipo_venda.data
         venda.total_venda = total_venda
         db.session.commit()
-        return redirect(url_for('vendas.listar_vendas'))
-
+        return redirect(url_for('vendas.listar_vendas', mensagem='Venda editada com sucesso!'))
     return render_template('vendas/venda.html',
                            form=form, venda=venda, modo="EDITAR")

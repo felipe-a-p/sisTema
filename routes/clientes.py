@@ -43,8 +43,7 @@ def novo_cliente():
         )
         db.session.add(novo_cliente)
         db.session.commit()
-        flash('Cliente adicionado com sucesso!', 'success')
-        return redirect(url_for('clientes.listar_clientes'))
+        return redirect(url_for('clientes.listar_clientes', mensagem='Cliente adicionado com sucesso!'))
 
     return render_template('clientes/cliente.html', form=form,
                            modo='Nova')
@@ -63,6 +62,9 @@ def editar_cliente(id):
 
         db.session.commit()
         flash('Cliente atualizado com sucesso!', 'success')
-        return redirect(url_for('clientes.listar_clientes'))
+        return redirect(url_for('clientes.listar_clientes', mensagem='Cliente editado com sucesso!'))
 
-    return render_template('clientes/cliente.html', form=form, cliente=cliente, modo="EDITAR")
+    return render_template('clientes/cliente.html',
+                           form=form,
+                           cliente=cliente,
+                           modo="EDITAR")
